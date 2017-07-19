@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+var color="blue"
+function changeColor(){
+	if (color==="blue") {
+		color="red";
+	}else {color="blue";
+	}
+}
+changeColor();
+alert("color is now "+color);
+</script>
+<script type="text/javascript">
+
+function bulidUrl(){
+	var qs="?debug=true";
+	with(location){
+		var url=href+qs;
+	}
+	return url;
+}
+</script>
+</body>
+</html>

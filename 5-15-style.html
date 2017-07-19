@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>style</title>
+	<style type="text/css">
+		/*div.box{
+			background-color: blue;
+			width: 100px;
+			height: 200px;
+		}*/
+	</style>
+</head>
+<body>
+<!-- <p id="p1"><b>Hello</b> world!</p> -->
+
+<script type="text/javascript">
+	// var sheet=null;
+	// for(var i=0,len=document.styleSheets.length,i<len;i++){
+	// 	sheet=document.styleSheets[i];
+	// 	console(sheet.href);
+	// }
+	// function getStyleSheet(element){
+	// 	return element.sheet||element.styleSheet;
+	// }
+	// var link=document.getElementByElementByTagName("link")[0];
+	// var sheet=getStyleSheet(link);
+
+	// var sheet=document.styleSheets[0];
+	// var rules=sheet.cssRules||sheet.rules;
+	// var rule=rules[0];
+	// console.log(rule.selectorText);
+	// console.log(rule.style.cssText);
+	// console.log(rule.style.backgroundColor);
+	// console.log(rule.style.width);
+	// console.log(rule.style.height);
+	// rule.style.backgroundColor="red";
+
+	// function getElementLeft(element){
+	// 	var actualLeft=element.offsetLeft;
+	// 	var current=element.offsetParent;
+	// 	while (current!==null){
+	// 		actualLeft+=current.offsetLeft;
+	// 		current=current.offsetParent;
+	// 	}
+ //        return actualLeft;
+	// }
+
+	// function getElementTop(element){
+	// 	var actualTop=element.offsetTop;
+	// 	var current=element.offsetParent;
+	// 	while(current!==null){
+	// 		actualLeft+=current.offsetTop;
+	// 		current=current.offsetParent;
+	// 	}
+	// 	return actualLeft;
+	// }
+	
+	// function getBoundingClientRect(element){
+	// 	var scrollTop=document.documentElement.scrollTop;
+	// 	var scrollLeft=document.documentElement.scrollLeft;
+	// 	if(element.getBoundingClientRect){
+	// 		if(typeof arguments.callee.offset!="number"){
+	// 			var temp=document.createElement("div");
+	// 			temp.style.cssText="position:absolute;top:0;left:0;";
+	// 			document.body.appendChild(temp);
+	// 			arguments.callee.offset=-temp.getBoundingClientRect.top-scrollTop;
+	// 			document.body.removeChild(temp);
+	// 			temp=null;
+	// 		}
+	// 		var rect=element.getBoundingClientRect();
+	// 		var offset=arguments.callee.offset;
+	// 		return{
+	// 			left:rect.left+offset,
+	// 			right:rect.right+offset,
+	// 			top:rect.top+offset,
+	// 			bottom:rect.bottom+offset
+	// 		};
+	// 	}else{
+	// 		var actualLeft=getElementLeft(element);
+	// 		var actualTop=getElementTop(element);
+	// 		return{
+	// 			left:actualLeft-scrollLeft,
+	// 			right:actualRight-scrollLeft+element.offsetWidth,
+	// 			top:actualTop-scrollTop,
+	// 			bottom:actualTop-scrollTop+element.offsetHeight
+	// 		}
+	// 	}
+	// }
+	// var p=document.querySelector("p");
+	// console.log(getBoundingClientRect(p));
+
+	// var supportsTraversals=document.implementation.hasFeature("Traversal","2.0");
+	// var supportsNodeIterator=(typeof document.createNodeIterator="function");
+	// var supportsTreeWalker=(typeof document.createTreeWalker="function");
+
+	// var filter=function(node){
+	// 	return node.tagName.toLowerCase()=="p"?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP;
+	// };
+	// var iterator=document.createNodeIterator(root,NodeFilter.SHOW_ELEMENT,filter,false);
+
+	// var iterator=document.createNodeIterator(document,NodeFilter.SHOW_ALL,null,false);
+
+	// var div=document.getElementById("div1");
+	// var iterator=document.createNodeIterator(div,NodeFilter.SHOW_ELEMENT,null,false);
+	// var node=iterator.nextNode();
+	// while(node!==null){
+	// 	console.log(node.tagName);
+	// 	node=iterator.nextNode();
+	// }
+
+	// var node=iterator.previousNode();
+	// while(node!==null){
+	// 	console.log(node.tagName);
+	// 	node=iterator.previousNode();
+	// }
+	// console.log(iterator);
+
+	// var div=document.getElementById("div1");
+	// var filter=function(node){
+	// 	return node.tagName.toLowerCase()=="li"?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP;
+	// };
+	// var iterator=document.createNodeIterator(div,NodeFilter.SHOW_ELEMENT,filter,false);
+	// var node=iterator.nextNode();
+	// while(node!==null){
+	
+	// 	console.log(node.tagName);
+	// 	node=iterator.nextNode();
+	// }
+
+	// var div=document.getElementById("div1");
+	// var walker=document.createTreeWalker(div,NodeFilter.SHOW_ELEMENT,null,false);
+	// var node=walker.nextNode();
+	// while(node!==null){
+	// 	console.log(node.tagName);
+	// 	node=walker.nextNode();
+	// }
+	// var node=walker.nextNode();
+	// console.log(node===walker.currentNode);
+
+
+	// var div=document.getElementById("div1");
+	// var walker=document.createTreeWalker(div,NodeFilter.SHOW_ELEMENT,null,false);
+	// walker.firstChild();
+	// walker.nextSibling();
+	// var node=walker.firstChild();
+	// while(node!==null){
+	// 	console.log(node.tagName);
+	// 	node=walker.nextSibling();
+	// }
+
+	// var range1=document.createRange(),
+	//     range2=document.createRange(),
+	//     p1=document.getElementById("p1"),
+	//     body=document.querySelector("body");
+	//     console.log(range1.selectNode(p1));
+	//     console.log(range2.selectNodeContents(p1));
+
+	//     console.log(body.childNodes[0]);
+	//     console.log(body.childNodes[1]);
+	//     console.log(body.childNodes[2]);
+
+
+
+</script>
+</body>
+</html>

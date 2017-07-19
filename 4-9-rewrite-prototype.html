@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>重写原型对象之后</title>
+</head>
+<body>
+<script type="text/javascript">
+	function Person(){		
+	}
+	var friend = new Person();
+	Person.prototype = {
+		constructor:Person,
+		name:"Dolby",
+		age:23,
+		job:"eatter",
+		sayName:function(){
+			alert(this.name);
+		}
+	};
+	friend.sayName();
+//以上代码在浏览器中没有弹出任何结果或是错误，是代码不齐全还是跟执行模式有关？
+</script>
+<script type="text/javascript">
+	String.prototype.startsWith = function(text){
+		return this.indexOf(text) == 0;
+	};
+	var msg = "Hello World!";
+	alert(msg.startsWith("Hello"));
+</script>
+<script type="text/javascript">
+	function Person(){
+	}
+	Person.prototype = {
+		constructor:Person,
+		name:"Dolby",
+		age:23,
+		job:"eatter",
+		friends:["Jane","LX"],
+		sayName:function(){
+			alert(this.name);
+		}
+	};
+	var Person1 = new Person();
+	var Person2 = new Person();
+	Person1.friends.push("Van");
+	alert(Person1.friends);
+	alert(Person2.friends);
+	alert(Person1.friends === Person2.friends);
+</script>
+<script type="text/javascript">
+	function Person(name,age,job){
+		var o = new Object();
+		o.sayName = function(){
+			alert(name);
+		};
+		return o;
+	}
+	var friend = Person("Dolby",23,"eatter");
+	friend.sayName();
+
+</script>
+</body>
+</html>

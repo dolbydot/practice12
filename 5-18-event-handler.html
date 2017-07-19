@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>事件处理程序</title>
+
+</head>
+<body>
+<!-- 	<input type="button" name="button" value="Click Me1" onclick="alert(&quot;Clicked&quot;)"/><br/>
+	<input type="button" name="button" value="Click Me2" onclick="showMessage()"/><br/>
+	<input type="button" name="button" value="Click Me3" onclick="alert(event.type)"><br/>
+	<input type="button" name="button" value="Click Me4" onclick="alert(this.value)"><br/>
+	<input type="button" name="button" value="Click Me5" onclick="alert(value)"><br/> -->
+
+<!-- <form method="post">
+	<input type="text" name="username" value="" />
+	<input type="button" name="button" value="Echo Username" onclick="alert(username.value)" />
+</form> -->
+
+<!-- <input type="button" id="myBtn" value="Click Me!"  onclick="alert(event.type)"/> -->
+<!-- <a href="http://baidu.com" id="myLink">aaa</a> -->
+<!-- <img src="C:\Users\dolby\Desktop\1.jpg" id="myImage" onload="alert('Image loaded.')" /> -->
+
+<!-- <input type="button" id="myBtn" value="Click Me!"/> -->
+<!-- <div id="myDiv2" style="background-color: red;width: 100px;height: 100px;"></div> -->
+
+<!-- <textarea id="myText"></textarea> -->
+<!-- <div id="myDiv">Right click or Ctrl+click me to get a custom context menu.Click anywhere else to get the default context menu. -->
+<!-- <ul id="myList" style="background-color: red;position: absolute;visibility: hidden;">
+	<li><a href="www.baidu.com">Item 1</a></li>
+	<li><a href="www.wrox.com">Item 2</a></li>
+	<li><a href="www.yahoo.com">Item 3</a></li>
+</ul> -->
+<!-- <ul id="myLinks">
+	<li id="goSomewhere">Item 1</li>
+	<li id="doSomething">Item 2</li>
+	<li id="sayHi">Item 3</li>
+</ul> -->
+<!-- </div> -->
+	<script type="text/javascript">
+	// function(){
+	// 	with(document){
+	// 		with(this){
+
+	// 		}
+	// 	}
+	// }
+
+	// function(){
+	// 	with(document){
+	// 		with(this.form){
+	// 			with(this){
+
+	// 			}
+	// 		}
+
+	// 	}
+	// }
+
+	// var btn=document.getElementById("myBtn");
+	// var handler=function(){alert(this.id);};
+	// btn.addEventListener("click",handler,false);
+	// btn.addEventListener("click",function(){alert('Hello World!');},false);
+	// btn.removeEventListener("click",handler,false);
+	// btn.attachEvent("onclick",function(){alert("Clicked");});
+	// btn.attachEvent("onclick",function(){alert("Hello World!");});
+
+
+	// btn.onclick=function(event){
+	// 	alert(event.type);
+	// };
+	// btn.addEventListener("click",function(event){alert(event.type);},false);
+
+	// var handler=function(event){
+	// 	switch(event.type){
+	// 		case "click":
+	// 		alert("Clicked");
+	// 		break;
+
+	// 		case "mouseover":
+	// 	    event.target.style.backgroundColor="red";
+	// 	    break;
+
+	// 	    case "mouseout":
+	// 	    event.target.style.backgroundColor="";
+	// 	    break;
+	// 	}
+	// };
+	// btn.onclick=handler;
+	// btn.onmouseover=handler;
+	// btn.onmouseout=handler;
+
+	// var link=document.getElementById("myLink");
+	// link.onclick=function(event){
+ //        event.cancelable=true;
+ //        console.log(event);
+	// 	event.preventDefault();
+	// };
+
+	// link.onclick=function(){
+	// 	window.event.returnValue=false;
+	// };
+
+	// btn.onclick=function(event){
+	// 	alert("Clicked");
+	// 	event.stopPropagation();
+	// };
+	// document.body.onclick=function(event){
+	// 	alert("Body clicked");
+	// };
+
+	// btn.onclick=function(){
+	// 	var event=window.event;
+	// 	alert(event.type);
+	// }
+
+    // btn.attachEvent("onclick",function(event){alert(event.type);});
+    // btn.attachEvent("onclick",function(){var event=window.event;alert(event.type);});
+
+    // btn.onclick=function(){
+    // 	alert(window.event.srcElement===btn);
+    // 	alert(btn===this);
+    // };
+    // btn.attachEvent("onclick",function(event){
+    // 	alert(event.srcElement===btn);
+    // 	alert(event.srcElement);
+    // 	alert(btn===this);
+    // });
+
+    // btn.onclick=function(){
+    // 	alert("Clicked");
+    // 	window.event.cancelBubble=true;
+    // };
+    // document.body.onclick=function(){
+    // 	alert("body clicked");
+    // };
+
+// 跨浏览器的事件对象----------------------------------------------------
+    var EventUtil={
+    	addHandler:function(element,type,handler){
+    		if(element.addEventListener){
+    			element.addEventListener(type,handler,false);
+    		}else if(element,attachEvent){
+    			element.attachEvent("on"+type,handler);
+    		}else{
+    			element["on"+type]=handler;
+    		}
+    	},
+    	getEvent:function(event){
+    		return event?event:window.event;
+    	},
+    	getTarget:function(event){
+    		return event.target||event.srcElement;
+    	},
+    	preventDefault:function(event){
+    		if(event.preventDefault){
+    			event.preventDefault();
+    		}else{
+    			event.returnValue=false;
+    		}
+    	},
+
+    	removeHandler:function(element,type,handler){
+    		if(element.removeEventListener){
+    			element.removeEventListener(type,handler,false);
+    		}else if(element,detachEvent){
+    			element.detachEvent("on"+type,handler);
+    		}else{
+    			element["on"+type]=null;
+    		}
+    	},
+    	stopPropagation:function(event){
+    		if(event.stopPropagation){
+    			event.stopPropagation();
+    		}else{
+    			event.cancelBubble=true;
+    		}
+    	},
+
+    	getRelatedTarget:function(event){
+    		if(event.relatedTarget){
+    			return event.relatedTarget;
+    		}else if(event.toElement){
+    			return event.toElement;
+    		}else if(event.fromElement){
+    			return event.fromElement;
+    		}else{
+    			return null;
+    		}
+    	},
+
+    	getButton:function(event){
+    		if(document.implementation.hasFeature("MouseEvents","2.0")){
+    			return event.button;
+    		}else{
+    			switch(event.button){
+    				case 0:
+    				case 1:
+    				case 3:
+    				case 5:
+    				case 7:
+    				    return 0;
+    				case 2:
+    				case 6:
+    				    return 2;
+    				case 4:
+    				    return 1;
+    			}
+    		}
+    	},
+
+    	getWheelDelta:function(event){
+    		if(event.wheelDelta){
+    			return(client.engine.opera&&client.engine.opera<9.5?-event.wheelDelta:event.wheelDelta);
+    		}else{
+    			return -event.details*40;
+    		}
+    	},
+
+    	getCharCode:function(event){
+    		if(typeof event.charCode=="number"){
+    			return event.charCode;
+    		}else{
+    			return event.keyCode;
+    		}
+    	},
+    };
+// ---------------------------------------------------------------------
+
+    // var isSupported=document.implementation.hasFeature("HTMLEvents","2.0");
+    // var isSupported2=document.implementation.hasFeature("UIEvent","3.0");
+
+    // EVentUtil.addHandler(window,"load",function(event){
+    // 	alert("Loaded!");
+    // });
+
+    // var image=document.getElementById("myImage");
+    // EVentUtil.addHandler(image,"load",function(event){
+    // 	event=EVentUtil.getEvent(event);
+    // 	alert(EVentUtil.getTarget(event).src);
+    // });
+
+    // EVentUtil.addHandler(window,"load",function(){
+    // 	var image=document.createElement("img");
+    // 	EVentUtil.addHandler(image,"load",function(event){
+    // 		event=EVentUtil.getEvent(event);
+    // 		alert(EVentUtil.getTarget(event).src);
+    // 	});
+    // 	document.body.appendChild(image);
+    // 	image.src="C:/Users/dolby/Desktop/1.jpg";
+    // });
+
+    // EVentUtil.addHandler(window,"load",function(){
+    // 	var script=document.createElement("script");
+    // 	EVentUtil.addHandler(script,"load",function(event){
+    // 		event=EVentUtil.getEvent(event);
+    // 		alert("Loaded");
+    // 	});
+    // 	script.src="example.js";
+    // 	document.body.appendChild(image);
+    // });
+
+    // EVentUtil.addHandler(window,"load",function(){
+    // 	var link=document.createElement("link");
+    // 	link.type="text/css";
+    // 	link.rel="stylesheet";
+    // 	EVentUtil.addHandler(link,"load",function(event){
+    // 		alert("Loaded");
+    // 	});
+    // 	link.href="example.css";
+    // 	document.getElementByTagName("head")[0].appendChild(link);
+    // });
+
+    // var div=document.getElementById("myDiv");
+    // EVentUtil.addHandler(div,"click",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert("Client coordinates:"+event.clientX+","+event.clientY);
+    // });
+
+    // var div=document.getElementById("myDiv");
+    // EVentUtil.addHandler(div,"click",function(event){
+    // 	event=EVentUtil.getEvent(event);
+    // 	alert("Page coordinates:"+event.pageX+","+event.pageY);
+    // });
+
+    // var div=document.getElementById("myDiv");
+    // EVentUtil.addHandler(div,"click",function(event){
+    // 	event=EVentUtil.getEvent(event);
+    // 	var pageX=event.pageX,
+    // 	pageY=event.pageY;
+
+    // 	if(pageX===undefined){
+    // 		pageX=event.clientX+(document.body.scrollLeft||document.documentElement.scrollLeft);
+    // 	}
+
+    // 	if (pageY===undefined){
+    // 		pageY=event.clientY+(document.body.scrollTop||document.documentElement.scrollTop);
+    // 	}
+    // 	alert("Page coordinates:"+pageX+","+pageY)
+    // });
+
+    // var div=document.getElementById("myDiv");
+    // EVentUtil.addHandler(div,"click",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert("Screen coordinates:"+event.screenX+","+event.screenY);
+    // })
+
+    // var div=document.getElementById("myBtn");
+    // EventUtil.addHandler(div,"click",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	var keys=new Array();
+    // 	if(event.shiftKey){
+    // 		keys.push("shift");
+    // 	}
+    // 	if(event.ctrlKey){
+    // 		keys.push("ctrl");
+    // 	}
+    // 	if(event.metaKey){
+    // 		keys.push("meta");
+    // 	}
+    // 	if(event.altKey){
+    // 		keys.push("alt");
+    // 	}
+    // 	alert("Keys:"+keys.join(","));
+    // });
+
+    // var div=document.getElementById("myDiv2");
+    // EventUtil.addHandler(div,"mouseout",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	var target=EventUtil.getTarget(event);
+    // 	var relatedTarget=EventUtil.getRelatedTarget(event);
+    // 	alert("Moused out of:"+target.tagName+"to"+relatedTarget.tagName);
+    // });
+
+    // var div=document.getElementById("myDiv2");
+    // EventUtil.addHandler(div,"mousedown",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert(EventUtil.getButton(event));
+    // });
+
+    // var div=document.getElementById("myDiv2");
+    // EventUtil.addHandler(div,"mousewheel",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert(event.wheelDelta);
+    // });
+
+    // (function(){
+    // 	function handleMouseWheel(event){
+    // 		event=EventUtil.getEvent(event);
+    // 		var delta=EventUtil.getWheelDelta(event);
+    // 		alert(delta);
+    // 	}
+    // 	EventUtil.addHandler(document,"mousewheel",handleMouseWheel);
+    // 	EventUtil.addHandler(document,"DOMMouseScroll",handleMouseWheel);
+    // })();
+
+    // var textbox=document.getElementById("myText");
+    // EventUtil.addHandler(textbox,"keydown",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert(event.keyCode);
+    // });
+
+    // var textbox=document.getElementById("myText");
+    // EventUtil.addHandler(textbox,"keypress",function(event){
+    // event=EventUtil.getEvent(event);
+    // // alert(EventUtil.getCharCode(event));
+    // var identifier=event.key||event.keyIdentifier;
+    // if(identifier){
+    // 	console.log(identifier.value);
+    // }
+    // });
+
+    // var textbox=document.getElementById("myText");
+    // EventUtil.addHandler(textbox,"textInput",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert(event.data);
+    // 	alert(event.inputMethod);
+    // });
+
+    // var isSupported=document.implementation.hasFeature("CompositionEvent","3.0");
+    // var textbox=document.getElementById("myText");
+    // EventUtil.addHandler(textbox,"compositionstart",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert(event.data);
+    // });
+    // EventUtil.addHandler(textbox,"compositionupdate",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert(event.data);
+    // });
+    // EventUtil.addHandler(textbox,"compositionend",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	alert(event.data);
+    // });
+
+    // EventUtil.addHandler(window,"load",function(event){
+    // 	var list=document.getElementById("myList");
+    // 	EventUtil.addHandler(document,"DOMSubtreeModified",function(event){
+    // 		console.log(event.type);
+    // 		console.log(event.target);
+    // 	});
+    // 	EventUtil.addHandler(document,"DOMNodeRemoved",function(event){
+    // 		console.log(event.type);
+    // 		console.log(event.target);
+    // 		console.log(event.relatedNode);
+    // 	});
+    // 	EventUtil.addHandler(list.firstChild,"DOMNodeRemovedFromDocument",function(event){
+    // 		console.log(event.type);
+    // 		console.log(event.target);
+    // 	});
+    // 	list.parentNode.removeChild(list);
+    // });
+
+    // EventUtil.addHandler(window,"load",function(event){
+    // 	var list=document.getElementById("myList");
+    // 	var item=document.createElement("li");
+    // 	item.appendChild(document.createTextNode("Item 4"));
+
+    // 	EventUtil.addHandler(document,"DOMSubtreeModified",function(event){
+    // 		console.log(event.type);
+    // 		console.log(event.target);
+    // 	});
+    // 	EventUtil.addHandler(document,"DOMNodeInserted",function(event){
+    // 		console.log(event.type);
+    // 		console.log(event.target);
+    // 		console.log(event.relatedNode);
+    // 	});
+    // 	EventUtil.addHandler(item,"DOMNodeInsertedIntoDocument",function(event){
+    // 		console.log(event.type);
+    // 		console.log(event.target);
+    // 	});
+    // 	list.appendChild(item);
+    // });
+
+    // EventUtil.addHandler(window,"load",function(event){
+    // 	var div=document.getElementById("myDiv");
+    // 	EventUtil.addHandler(div,"contextmenu",function(event){
+    // 		event=EventUtil.getEvent(event);
+    // 		EventUtil.preventDefault(event);
+    // 		var menu=document.getElementById("myList");
+    // 		menu.style.left=event.clientX+"px";
+    // 		menu.style.top=event.clientY+"px";
+    // 		menu.style.visibility="visible";
+    // 	});
+    // 	EventUtil.addHandler(document,"click",function(event){
+    // 		document.getElementById("myList").style.visibility="hidden";
+    // 	});
+    // });
+
+    // EventUtil.addHandler(window,"beforeunload",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	var message="I'm really going to miss you if you go.";
+    // 	event.returnValue=message;
+    // 	return message;
+    // });
+
+    // setTimeout(function(){
+    //     EventUtil.addHandler(document,"DOMContentLoaded",function(event){
+    // 	alert("Content loaded.");
+    // });
+    // },0)
+
+    // EventUtil.addHandler(document,"readystatechange",function(event){
+    // 	if(document.readyState=="interactive"||document.readyState=="complete"){
+    // 		EventUtil.removeHandler(document,"readystatechange",arguments.callee);
+    // 	alert("Content loaded.");    		
+    // 	}  
+    // });
+
+    // EventUtil.addHandler(window,"load",function(){
+    // 	var script=document.createElement("script");
+    // 	EventUtil.addHandler(script,"readystatechange",function(event){
+    // 		event=EventUtil.getEvent(event);
+    // 		var target=EventUtil.getTarget(event);
+    // 		if(target.readyState=="loaded"||target.readyState=="complete"){
+    // 			EventUtil.removeHandler(target,"readystatechange",arguments.callee);
+    // 			alert("Script loaded");
+    // 		}
+    // 	});
+    // 	script.src="example.js";
+    // 	document.body.appendChild(script);
+    // });
+
+    // EventUtil.addHandler(window,"load",function(){
+    // 	var link=document.createElement("link");
+    // 	link.type="text/css";
+    // 	link.rel="stylesheet";
+    // 	EventUtil.addHandler(link,"readystatechange",function(event){
+    // 		event=EventUtil.getEvent(event);
+    // 		var target=EventUtil.getTarget(event);
+    // 		if(target.readyState=="loaded"||target.readyState=="complete"){
+    // 			EventUtil.removeHandler(target,"readystatechange",arguments.callee);
+    // 			alert("CSS loaded");
+    // 		}
+    // 	});
+    // 	link.href="example.css";
+    // 	document.body.appendChild(link);
+    // });
+
+    // (function(){
+    // 	var showCount=0;
+    // 	EventUtil.addHandler(window,"load",function(){
+    // 		alert("Load fired.");
+    // 	});
+    // 	EventUtil.addHandler(window,"pageshow",function(){
+    // 		showCount++;
+    // 		alert("Show has been fired "+showCount+" times.");
+    // 	});
+    // })();
+
+    // (function(){
+    // 	var showCount=0;
+    // 	EventUtil.addHandler(window,"load",function(){
+    // 		alert("Load fired.");
+    // 		// alert("Hide fired.");
+    // 	});
+    // 	EventUtil.addHandler(window,"pageshow",function(event){
+    // 		showCount++;
+    // 		alert("Show has been fired "+showCount+" times.Persisted? "+event.Persisted);
+    // 	// EventUtil.addHandler(window,"pagehide",function(event){
+    // 	// showCount++;
+    // 	// alert("Hiding. Persisted? "+event.Persisted);
+    // 	});
+    // })();
+
+    // EventUtil.addHandler(window,"hashchange",function(event){
+    // 	alert("Old URL:"+event.oldURL+"New URL:"+event.newURL);
+    // 	alert("Current hash:"+location.hash);
+    // });
+
+    // var isSupported=("onhashchange" in window)&&(document.documentMode===undefined||document.documentMode>7);
+
+    // EventUtil.addHandler(window,"load",function(event){
+    // 	var div=document.getElementById("myDiv");
+    // 	div.innerHTML="Current orientation is "+window.orientation;
+    // 	EventUtil.addHandler(window,"orientationchange",function(event){
+    // 		div.innerHTML="Current orientation is "+window.orientation;
+    // 	});
+    // });
+
+    // EventUtil.addHandler(window,"MozOrientation",function(event){
+    // 	var output=documeng.getElementById("output");
+    // 	output.innerHTML="X="+event.X+",Y="+event.Y+",Z="+event.Z+"<br>";
+    // });
+
+    // EventUtil.addHandler(window,"deviceorientation",function(event){
+    // 	var output=document.getElementById("output");
+    // 	output.innerHTML="Alpha="+event.alpha+",Beta="+event.beta+",Gamma="+event.gamma+"<br>";
+    // });
+
+    // function handleTouchEvent(event){
+    // 	if(event.touches.length==1){
+    // 		var output=document.getElementById("output");
+    // 		switch(event.type){
+    // 			case "touchstart":
+    // 			output.innerHTML="Touch started("+event.touches[0].clientX+","+event.touches[0].clientY+")";
+    // 			break;
+    // 			case "touchend":
+    // 			output.innerHTML+="<br>Touch ended("+event.changedTouches[0].clientX+","+event.changedTouches[0].clientY+")";
+    // 			break;
+    // 			case "touchmove":
+    // 			event.preventDefault();
+    // 			output.innerHTML+="<br>Touch moved("+event.changedTouches[0].clientX+","+event.changedTouches[0].clientY+")";
+    // 			break;
+    // 		}
+    // 	}
+    // }
+    // EventUtil.addHandler(document,"touchstart",handleTouchEvent);
+    // EventUtil.addHandler(document,"touchend",handleTouchEvent);
+    // EventUtil.addHandler(document,"touchmove",handleTouchEvent);
+
+    // function handleGestureEvent(event){
+    // 	var output=document.getElementById("output");
+    // 	switch(event.type){
+    // 		case "gesturestart":
+    // 		output.innerHTML="Gesture started(rotation="+event.rotation+",scale="+event.scale+")";
+    // 		break;
+    // 		case "gestureend":
+    // 		output.innerHTML+="<br>Gesture ended(rotation="+event.rotation+",scale="+event.scale+")";
+    // 		break;
+    // 		case "gesturechange":
+    // 		output.innerHTML+="<br>Gesture changed(rotation="+event.rotation+",scale"+event.scale+")";
+    // 		break;
+    // 	}
+    // }
+    // document.addEventListener("gesturestart",handleGestureEvent,false);
+    // document.addEventListener("gestureend",handleGestureEvent,false);
+    // document.addEventListener("gesturechange",handleGestureEvent,false);
+
+    // var list=document.getElementById("myLinks");
+    // EventUtil.addHandler(list,"click",function(event){
+    // 	event=EventUtil.getEvent(event);
+    // 	var target=EventUtil.getTarget(event);
+    // 	switch(target.id){
+    // 		case "doSomething":
+    // 		document.title="I changed the document's title";
+    // 		break;
+    // 		case "goSomewhere":
+    // 		location.href="http://www.baidu.com";
+    // 		break;
+    // 		case "sayHi":
+    // 		alert("hi");
+    // 		break;
+    // 	}
+    // 	    list.onclick=null;
+    // document.getElementById("myLinks").innerHTML="Hello World!";
+    // });
+
+    // var btn=document.getElementById("myBtn");
+    // var event=document.createEvent("MouseEvents");
+    // event.initMouseEvent("click",true,true,document.defaultView,0,0,0,0,0,false,false,false,false,0,null);
+    // btn.dispatchEvent(event);
+
+    // var textbox=document.getElementById("myText");
+    // var event=document.createEvent("Events");
+    // event.initEvent("keypress",true,true);
+    // event.view=document.defaultView;
+    // event.altKey=false;
+    // event.shiftKey=false;
+    // event.ctrlKey=false;
+    // event.metaKey=false;
+    // event.keuCode=65;
+    // event.charCode=65;
+    // textbox.dispatchEvent(event);
+
+    // var div=document.getElementById("myDiv"),
+    // event;
+    // EventUtil.addHandler(div,"myevent",function(event){
+    // 	alert("DIV: "+event.detail);
+    // });
+    // EventUtil.addHandler(document,"myevent",function(event){
+    // 	alert("DOCUMENT: "+event.detail);
+    // });
+    // if(document.implementation.hasFeature("CustomEvents","3.0")){
+    // 	event=document.createEvent("CustomEvent");
+    // 	event.initCustomEvent("myevent",true,false,"Hello World!");
+    // 	div.dispatchEvent(event);
+    // }
+
+    // var btn=document.getElementById("myBtn");
+    // var event=document.createEventObject();
+    // event.screenX=100;
+    // event.screenY=0;
+    // event.clientX=0;
+    // event.clientY=0;
+    // event.ctrlKey=false;
+    // event.shiftKey=false;
+    // event.altKey=false;
+    // event.button=0;
+    // btn.fireEvent("onclick",event);
+	</script>
+</body>
+</html>
